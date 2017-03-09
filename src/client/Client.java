@@ -18,16 +18,23 @@ public class Client {
             //1.创建客户端Socket，指定服务器地址和端口
             Socket socket=new Socket("169.254.2.33", 8888);
             //2.获取输出流，向服务器端发送信息
-        	OutputStream os=socket.getOutputStream();//字节输出流
+            OutputStream os=socket.getOutputStream();//字节输出流
         	PrintWriter pw=new PrintWriter(os);//将输出流包装为打印流
+        	byte[] bt = new byte[100000];
             int a=1;
             while (a!=0){
-            	byte[] bt = new byte[1000];
             	pw.write(new String(bt));
             	pw.flush();
-            	System.out.print(a++);
+            	a++;
+            	if (a%1000==0)
+            		System.out.print(a);
+            	if (a%1==0){
+            		Thread.sleep(0);
+            	}
             }
-        	socket.shutdownOutput();//关闭输出流
+            socket.shutdownOutput();//关闭输出流
+        	pw.close();
+            os.close();
             //3.获取输入流，并读取服务器端的响应信息
             InputStream is=socket.getInputStream();
             BufferedReader br=new BufferedReader(new InputStreamReader(is));
@@ -38,13 +45,15 @@ public class Client {
             //4.关闭资源
             br.close();
             is.close();
-            pw.close();
-            os.close();
+
             socket.close();
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        } catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }
