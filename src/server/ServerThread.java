@@ -29,11 +29,15 @@ public class ServerThread extends Thread {
         try {
             //获取输入流，并读取客户端信息
             is = socket.getInputStream();
-            isr = new InputStreamReader(is);
-            br = new BufferedReader(isr);
-            String info=null;
-            while((info=br.readLine())!=null){//循环读取客户端的信息
-                System.out.println("我是服务器，客户端说："+info);
+            int a=1;
+            while (a!=0){
+            	isr = new InputStreamReader(is);
+            	br = new BufferedReader(isr);
+                String info=null;
+                while((info=br.readLine())!=null){//循环读取客户端的信息
+                    System.out.println("我是服务器，客户端说："+info);
+                }
+                //System.out.print(a++);
             }
             socket.shutdownInput();//关闭输入流
             //获取输出流，响应客户端的请求
