@@ -35,7 +35,8 @@ public class ServerThread extends Thread {
             	br = new BufferedReader(isr);
                 String info=null;
                 while((info=br.readLine())!=null){//循环读取客户端的信息
-                    System.out.println("我是服务器，客户端说："+info);
+                    //System.out.println("我是服务器，客户端说："+info);
+                	System.out.println(info.length());
                 }
                 //System.out.print(a++);
             }
